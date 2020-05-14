@@ -11,12 +11,12 @@ use Symfony\Component\Routing\Annotation\Route;
 /**
  * Class WildController
  * @package App\Controller
- * @Route("wild", name="wild")
+ * @Route("wild", name="wild_")
  */
 class WildController extends AbstractController
 {
     /**
-     * @Route("", name="wild_index")
+     * @Route("", name="index")
      */
     public function index(): Response
     {
@@ -29,7 +29,7 @@ class WildController extends AbstractController
      * @Route("/show/{slug}",
      * defaults={"slug"= "Aucune série sélectionnée, veuillez choisir une série"},
      * requirements={"slug"= "[a-z0-9-]+"},
-     * name="wild_show")
+     * name="show")
      */
     public function show(string $slug): Response
     {
