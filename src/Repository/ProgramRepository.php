@@ -35,7 +35,17 @@ class ProgramRepository extends ServiceEntityRepository
         ;
     }
     */
-
+    public function findByCategory($value)
+    {
+        return $this->createQueryBuilder('p')
+            ->andWhere('p.category = :val')
+            ->setParameter('val', $value)
+            ->orderBy('p.id', 'DESC')
+            ->setMaxResults(3)
+            ->getQuery()
+            ->getResult()
+        ;
+    }
     /*
     public function findOneBySomeField($value): ?Program
     {

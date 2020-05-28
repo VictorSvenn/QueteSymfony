@@ -1,0 +1,11 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}New Wizard{% endblock %}
+
+{% block body %}
+    <h1>Create new Wizard</h1>
+
+    {{ include('wizard/_form.html.twig') }}
+
+    <a href="{{ path('wizard_index') }}">back to list</a>
+{% endblock %}

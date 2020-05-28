@@ -1,0 +1,10 @@
+{% extends 'base.html.twig' %}
+
+{% block body %}
+{% for movie in movies %}
+    <p>{{ movie.id }}</p>
+    <h3>{{ movie.title }}</h3>
+    <img src={{ movie.poster }}>
+    <p>{{ movie.summary }}</p>
+{% endfor %}
+{% endblock %}

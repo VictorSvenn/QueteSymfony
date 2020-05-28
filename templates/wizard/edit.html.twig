@@ -1,0 +1,13 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Edit Wizard{% endblock %}
+
+{% block body %}
+    <h1>Edit Wizard</h1>
+
+    {{ include('wizard/_form.html.twig', {'button_label': 'Update'}) }}
+
+    <a href="{{ path('wizard_index') }}">back to list</a>
+
+    {{ include('wizard/_delete_form.html.twig') }}
+{% endblock %}

@@ -18,12 +18,12 @@ class Program
     private $id;
 
     /**
-     * @ORM\Column(type="integer")
+     * @ORM\Column(type="string")
      */
     private $title;
 
     /**
-     * @ORM\Column(type="string", length=255)
+     * @ORM\Column(type="string", length=500)
      */
     private $summary;
 
@@ -43,7 +43,7 @@ class Program
         return $this->id;
     }
 
-    public function getTitle(): ?int
+    public function getTitle()
     {
         return $this->title;
     }
