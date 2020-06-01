@@ -4,7 +4,9 @@
 namespace App\Controller;
 
 use App\Entity\Category;
+use App\Entity\Episode;
 use App\Entity\Program;
+use App\Entity\Season;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
@@ -65,6 +67,62 @@ class WildController extends AbstractController
         return $this->render('wild/show.html.twig', [
             'program' => $program,
             'slug' => $slug,
+        ]);
+    }
+
+    /**
+     * @Route("/showProgram/{slug}", name="show_program")
+     */
+    public function showByProgram(string $slug): Response
+    {
+        $slug = preg_replace(
+            "/-/",
+            ' ', ucwords(trim(strip_tags($slug)), "-")
+        );
+        $program = $this->getDoctrine()
+            ->getRepository(Program::class)
+            ->findOneBy(['title' =>mb_strtolower($slug)]);
+        $seasons=$program->getSeasons();
+
+        return $this->render('wild/showProgram.html.twig', [
+            'program' => $program,
+            'seasons' => $seasons,
+            'slug' => $slug
+        ]);
+    }
+
+    /**
+     * @Route("/showSeason/{id}", methods={"GET"}, name="show_season")
+     */
+    public function showBySeason(int $id): Response
+    {
+        $season = $this->getDoctrine()
+            ->getRepository(Season::class)
+            ->findOneBy(['id'=> $id]);
+
+        $program = $season->getProgram();
+        $episodes = $season->getEpisodes();
+
+        return $this->render('wild/showSeason.html.twig', [
+            'program' => $program,
+            'season' => $season,
+            'episodes' => $episodes
+        ]);
+
+
+    }
+
+    /**
+     * @Route("/showSeason/showEpisode/{id}", methods={"GET"}, name="show_episode")
+     */
+    public function showByEpisode(int $id): Response
+    {
+        $episode = $this->getDoctrine()
+            ->getRepository(Episode::class)
+            ->findOneBy(['id' => $id]);
+
+        return $this->render('wild/showEpisode.html.twig',[
+            'episode' => $episode
         ]);
     }
 
