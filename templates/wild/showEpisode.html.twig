@@ -1,8 +1,10 @@
 {% extends 'base.html.twig' %}
 
 {% block body %}
-    <h2>Titre: {{ episode.title }}</h2>
-    <h4>Episode n°{{ episode.number }}</h4>
+    <h2>{{ program.title }}</h2>
+    <h2>Episode {{ episode.number }} : {{ episode.title }}</h2>
+    <h4>Saison {{ season.number }}</h4>
     <p>Synopsis: {{ episode.synopsis }}</p>
+    <a href="/wild/showSeason/{{ season.id }}">Retour à la saison</a>
 
 {% endblock %}

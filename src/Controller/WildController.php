@@ -115,14 +115,15 @@ class WildController extends AbstractController
     /**
      * @Route("/showSeason/showEpisode/{id}", methods={"GET"}, name="show_episode")
      */
-    public function showByEpisode(int $id): Response
+    public function showByEpisode(Episode $episode): Response
     {
-        $episode = $this->getDoctrine()
-            ->getRepository(Episode::class)
-            ->findOneBy(['id' => $id]);
+        $season = $episode->getSeason();
+        $program= $season->getProgram();
 
         return $this->render('wild/showEpisode.html.twig',[
-            'episode' => $episode
+            'episode' => $episode,
+            'season' => $season,
+            'program' => $program
         ]);
     }
 
