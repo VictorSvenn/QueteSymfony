@@ -37,7 +37,7 @@ class WildController extends AbstractController
             );
         }
 
-        return $this->render('wild/add.html.twig', [
+        return $this->render('wild/index.html.twig', [
             'programs' => $programs,
         ]);
     }

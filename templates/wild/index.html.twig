@@ -3,22 +3,19 @@
 {% block title %}All programs{% endblock %}
 
 {% block body %}
-    {{ form_start(form) }}
-    {{ form_row(form.name) }}
-    <button class="btn">{{ button_label|default('Search') }}</button>
-    {{ form_end(form) }}
 
-
-    <h1>Toutes les séries de la table program : </h1>
+    <h1>Toutes les séries: </h1>
+    <div class="container-fluid d-flex flex-wrap">
     {% for program in programs %}
-        <div>
-            <a href="showProgram/{{ program.title }}"><h2>{{ loop.index }} / {{ program.title }} - Catégorie : {{ program.category.name }}</h2></a>
-            <p>{{ program.summary }}</p>
-        </div>
+            <div class="row card" style="width: 20rem; margin: 1rem">
+                <img class="card-img-top" src="{{ program.poster }}">
+                <div class="card-body">
+                    <a href="showProgram/{{ program.title }}"><h2 class="card-title">{{ loop.index }} / {{ program.title }} - Catégorie : {{ program.category.name }}</h2></a>
+                    <p class="card-text">{{ program.summary }}</p>
+                </div>
+            </div>
     {% else %}
+        </div>
         Aucune série trouvée.
     {% endfor %}
-    <a href="{{ path('app_index') }}">
-        Retour à l'accueil
-    </a>
 {% endblock %}
