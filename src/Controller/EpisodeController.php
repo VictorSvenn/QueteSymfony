@@ -3,6 +3,7 @@
 namespace App\Controller;
 
 use App\Entity\Episode;
+use App\Entity\Program;
 use App\Form\EpisodeType;
 use App\Repository\EpisodeRepository;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
@@ -30,8 +31,11 @@ class EpisodeController extends AbstractController
      */
     public function new(Request $request): Response
     {
+        $programs = $this->getDoctrine()->getRepository(Program::class)->findAll();
         $episode = new Episode();
-        $form = $this->createForm(EpisodeType::class, $episode);
+        $form = $this->createForm(EpisodeType::class, $episode, [
+            'programs' => $programs
+        ]);
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
