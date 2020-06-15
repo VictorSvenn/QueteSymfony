@@ -30,9 +30,9 @@ class Program
     private $title;
 
     /**
-     * @ORM\Column(type="string", length=500)
-     * @Assert\NotBlank(message="Fill here program resume")
-     * @Assert\Regex(pattern="/\b(plus belle la vie)\b/", match=false, message="We're talkig about real shit here Boï")
+     * @ORM\Column(type="text", length=1000)
+     * @Assert\NotBlank()
+     * @Assert\Regex(pattern="/\b(plus belle la vie)\b/", match=false, message="Are you serious? We're talkig about real shit here Boï, change that!")
      */
     private $summary;
 
@@ -53,9 +53,15 @@ class Program
      */
     private $seasons;
 
+    /**
+     * @ORM\ManyToMany(targetEntity=Actor::class, mappedBy="programs")
+     */
+    private $actors;
+
     public function __construct()
     {
         $this->seasons = new ArrayCollection();
+        $this->actors = new ArrayCollection();
     }
 
     public function getId(): ?int
@@ -137,6 +143,34 @@ class Program
             if ($season->getProgram() === $this) {
                 $season->setProgram(null);
             }
+        }
+
+        return $this;
+    }
+
+    /**
+     * @return Collection|Actor[]
+     */
+    public function getActors(): Collection
+    {
+        return $this->actors;
+    }
+
+    public function addActor(Actor $actor): self
+    {
+        if (!$this->actors->contains($actor)) {
+            $this->actors[] = $actor;
+            $actor->addProgram($this);
+        }
+
+        return $this;
+    }
+
+    public function removeActor(Actor $actor): self
+    {
+        if ($this->actors->contains($actor)) {
+            $this->actors->removeElement($actor);
+            $actor->removeProgram($this);
         }
 
         return $this;
